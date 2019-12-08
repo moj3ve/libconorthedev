@@ -1,4 +1,4 @@
-#import "libconorthedev.h"
+#import "public/libconorthedev.h"
 
 /*
  * A class to provide useful functions to do with UIColor
@@ -29,6 +29,11 @@
   return color;
 }
 
+/*
+ * Gets a readable text colour from the background colour
+ * @param backgroundColor - UIColor
+ * @return UIColor - the text color
+ */
 - (UIColor *)readableForegroundColorForBackgroundColor:
     (UIColor *)backgroundColor {
   size_t count = CGColorGetNumberOfComponents(backgroundColor.CGColor);
