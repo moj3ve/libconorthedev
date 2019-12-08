@@ -30,6 +30,31 @@
 }
 
 /*
+ * Gets the most average color from a UIImage with a custom alpha
+ * @param image - UIImage
+ * @param alpha - double
+ * @return UIColor - the average color
+ */
+- (UIColor *)getAverageColorFrom:(UIImage *)image withAlpha:(double)alpha {
+  CGSize size = {1, 1};
+  UIGraphicsBeginImageContext(size);
+  CGContextRef ctx = UIGraphicsGetCurrentContext();
+  CGContextSetInterpolationQuality(ctx, kCGInterpolationMedium);
+
+  [image drawInRect:(CGRect){.size = size} blendMode:kCGBlendModeCopy alpha:1];
+
+  uint8_t *data = (uint8_t *)CGBitmapContextGetData(ctx);
+
+  UIColor *color = [UIColor colorWithRed:data[2] / 255.0f
+                                   green:data[1] / 255.0f
+                                    blue:data[0] / 255.0f
+                                   alpha:alpha];
+
+  UIGraphicsEndImageContext();
+  return color;
+}
+
+/*
  * Gets a readable text colour from the background colour
  * @param backgroundColor - UIColor
  * @return UIColor - the text color
